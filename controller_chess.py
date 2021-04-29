@@ -26,7 +26,8 @@ class Controller:
         list_of_rounds = []
         list_done_pairs = []
         for number in range(number_rounds):
-            tournament_round, list_done_pairs = self.create_round(number, list_of_players_ids, list_done_pairs)
+            tournament_round, list_of_players_ids, list_done_pairs = self.create_round(number, list_of_players_ids,
+                                                                                       list_done_pairs)
             list_of_rounds.append(tournament_round)
 
         tournament = model_chess.Tournament(tournament_name, tournament_location, tournament_date_start,
@@ -58,10 +59,11 @@ class Controller:
         start_date_time = self.view.get_round_start_time()
         end_date_time = self.view.get_round_end_time()
         name_round = self.view.get_round_name()
-        list_of_new_matches, list_done_pairs = self.create_matchs(list_of_players_ids, round_number, list_done_pairs)
-        tournament_round = model_chess.Round(round_number, list_of_new_matches, start_date_time, end_date_time,
+        list_of_matches, list_of_players_ids, list_done_pairs = self.create_matchs(list_of_players_ids, round_number,
+                                                                                   list_done_pairs)
+        tournament_round = model_chess.Round(round_number, list_of_matches, start_date_time, end_date_time,
                                              name_round)
-        return tournament_round, list_done_pairs
+        return tournament_round, list_of_players_ids, list_done_pairs
 
     def create_matchs(self, list_of_players_ids, round_number, list_done_pairs):
         list_players_sorted = services_chess.sorting_list_score(list_of_players_ids)
@@ -69,25 +71,32 @@ class Controller:
             list_of_pairs, list_done_pairs = self.create_pairs(list_players_sorted, list_done_pairs)
         else:
             list_of_pairs, list_done_pairs = self.create_new_pairs(list_players_sorted, list_done_pairs)
-        list_of_new_matches = []
+        list_of_matches = []
+        match_number = 0
         for pairs in list_of_pairs:
+            match_number += 1
             score_1 = self.view.get_score_player(pairs[0].id_player)
             score_2 = self.view.get_score_player(pairs[1].id_player)
-            pairs[0].score += score_1
-            pairs[1].score += score_2
-            match = [pairs[0], pairs[1], score_1, score_2]
-            list_of_new_matches.append(match)
-        return list_of_new_matches, list_done_pairs
+            pairs[0].update_score(score_1)
+            pairs[1].update_score(score_2)
+            for player_id in list_of_players_ids:
+                if player_id.id_player == pairs[0].id_player:
+                    player_id.score = pairs[0].score
+                elif player_id.id_player == pairs[1].id_player:
+                    player_id.score = pairs[1].score
+                pass
+            match = model_chess.Match(score_1, score_2, pairs[0], pairs[1], str(match_number))
+            list_of_matches.append(match)
+
+        return list_of_matches, list_of_players_ids, list_done_pairs
 
     @staticmethod
     def create_pairs(list_of_players_sorted, list_done_pairs):
-        list_all_pairs = services_chess.create_all_pairs(list_of_players_sorted)
-        list_of_pairs = services_chess.create_pairs(list_of_players_sorted, list_done_pairs, list_all_pairs)
+        list_of_pairs = services_chess.create_pairs(list_of_players_sorted, list_done_pairs)
         return list_of_pairs, list_done_pairs
 
     @staticmethod
     def create_new_pairs(list_of_players_sorted, list_done_pairs):
-        # list_all_pairs = services_chess.create_all_pairs()
         list_of_pairs, list_done_pairs = services_chess.create_new_pairs(list_of_players_sorted, list_done_pairs)
         return list_of_pairs, list_done_pairs
 
