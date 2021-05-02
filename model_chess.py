@@ -55,7 +55,7 @@ class Round:
 
 class Tournament:
     def __init__(self, tournament_name, location, tournament_date_start, tournament_date_end, num_of_days,
-                 num_of_rounds, num_of_players, list_of_players, list_of_rounds):
+                 num_of_rounds, num_of_players, new_list_of_players, list_of_rounds):
         self.tournament_name = tournament_name
         self.location = location
         self.tournament_date_start = tournament_date_start
@@ -63,5 +63,5 @@ class Tournament:
         self.num_of_days = num_of_days
         self.num_of_rounds = num_of_rounds
         self.num_of_players = num_of_players
-        self.list_of_players = list_of_players
+        self.new_list_of_players = new_list_of_players
         self.list_of_rounds = list_of_rounds
