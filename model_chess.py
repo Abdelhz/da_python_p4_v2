@@ -18,6 +18,10 @@ class Player:
     def update_rank(self, points):
         self.ranking += points
 
+    def obj_to_dict(self):
+        dic = self.__dict__
+        return dic
+
 
 class IdPlayers:
     def __init__(self, ranking, id_player, score):

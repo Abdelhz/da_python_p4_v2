@@ -87,7 +87,7 @@ class Controller:
                 elif player_id.id_player == pairs[1].id_player:
                     player_id.score = pairs[1].score
                 pass
-            match = model_chess.Match(score_1, score_2, pairs[0], pairs[1], str(match_number))
+            match = model_chess.Match(score_1, score_2, pairs[0].id_player, pairs[1].id_player, str(match_number))
             list_of_matches.append(match)
 
         return list_of_matches, list_of_players_ids, list_done_pairs
