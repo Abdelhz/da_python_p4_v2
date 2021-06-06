@@ -68,7 +68,7 @@ class Controller:
     def create_player_id(list_of_players):
         list_of_players_ids = []
         for player in list_of_players:
-            player_id = model_chess.IdPlayers(player.id_player, player.score)
+            player_id = model_chess.IdPlayers(player.id_player, player.score, player.ranking)
             list_of_players_ids.append(player_id)
         return list_of_players_ids
 
@@ -240,9 +240,8 @@ class Controller:
         # inserer nouveau tournoi sinon mettre à jour
 
     def continue_tournament(self, last_tournament):
-        tournament, list_of_players, number_rounds = self.dic_tournament_to_obj(last_tournament)
+        tournament, list_of_players, number_rounds, list_done_pairs = self.dic_tournament_to_obj(last_tournament)
         list_of_rounds = tournament.list_of_rounds
-        list_done_pairs = self.retrieve_done_pairs(list_of_rounds)
         list_of_players_ids = self.create_player_id(list_of_players)
         list_of_rounds, list_of_players_ids, last_round = self.process_last_rounds(tournament.num_of_rounds,
                                                                                    list_of_players_ids,
@@ -262,21 +261,6 @@ class Controller:
         tournament.tournament_state = tournament_state
         tournament.num_of_days = number_days
         return tournament, new_list_of_players
-
-    @staticmethod
-    def retrieve_done_pairs(list_of_rounds):
-        list_done_pairs = []
-        for round_a in list_of_rounds:
-            for match in round_a.list_matchs:
-                player_id_1 = match.player_1_id
-                player_id_2 = match.player_2_id
-                score_1 = match.score_1
-                score_2 = match.score_2
-                player_1 = model_chess.IdPlayers(player_id_1, score_1)
-                player_2 = model_chess.IdPlayers(player_id_2, score_2)
-                done_pair = [player_1, player_2]
-                list_done_pairs.append(done_pair)
-        return list_done_pairs
 
     @staticmethod
     def update_list_players(list_of_players):
@@ -376,7 +360,7 @@ class Controller:
             tournament_round = model_chess.Round(round_number, new_match, start_date_time, end_date_time,
                                                  name_round)
             list_of_rounds.append(tournament_round)
-        return list_of_rounds
+        return list_of_rounds, list_done_pairs
 
     def dic_tournament_to_obj(self, dic_tournament):
         tournament_name = dic_tournament["tournament_name"]
@@ -390,9 +374,9 @@ class Controller:
         dic_list_of_rounds = dic_tournament["list_of_rounds"]
         tournament_state = dic_tournament["tournament_state"]
         new_list_of_players = self.dic_players_to_obj(dic_list_of_players)
-        list_of_rounds = self.dic_rounds_to_obj(dic_list_of_rounds)
+        list_of_rounds, list_done_pairs = self.dic_rounds_to_obj(dic_list_of_rounds)
 
         tournament = model_chess.Tournament(tournament_name, tournament_location, tournament_date_start,
                                             tournament_date_end, number_days, number_rounds, number_players,
                                             new_list_of_players, list_of_rounds, tournament_state)
-        return tournament, new_list_of_players, number_rounds
+        return tournament, new_list_of_players, number_rounds, list_done_pairs

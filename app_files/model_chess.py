@@ -24,9 +24,10 @@ class Player:
 
 
 class IdPlayers:
-    def __init__(self, id_player, score):
+    def __init__(self, id_player, score, ranking):
         self.id_player = id_player
         self.score = score
+        self.ranking = ranking
 
     def update_score(self, point):
         self.score += point
