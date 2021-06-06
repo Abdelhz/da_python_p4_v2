@@ -33,19 +33,15 @@ class IdPlayers:
         self.score += point
 
 
-class Pairs:
-    def __init__(self, player_1_id, player_2_id):
-        self.player_1_id = player_1_id
-        self.player_2_id = player_2_id
-
-
 class Match:
-    def __init__(self, score_1, score_2, player_1_id, player_2_id, match_number):
+    def __init__(self, score_1, score_2, player_1_id, player_2_id, player_1_ranking, player_2_ranking, match_number):
         self.score_1 = score_1
         self.score_2 = score_2
         self.player_1_id = player_1_id
         self.player_2_id = player_2_id
         self.match_number = match_number
+        self.player_1_ranking = player_1_ranking
+        self.player_2_ranking = player_2_ranking
 
 
 class Round:

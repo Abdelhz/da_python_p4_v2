@@ -231,7 +231,7 @@ class View:
         print("3 - Consulter et modifier la liste des joueurs participants.\n")
         print("Saisissez 1, 2 ou 3 !\n")
         try:
-            answer = input("Veuillez choisir une option en saisissant le numéro correspondant ! ")
+            answer = input("Veuillez choisir une option en saisissant le numéro correspondant :\n")
             if not (answer == "1" or answer == "2" or answer == "3"):
                 print("La saisie n'est pas correcte, veuillez recommencer ! ")
                 return self.get_menu_option()

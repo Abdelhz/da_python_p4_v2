@@ -138,7 +138,8 @@ class Controller:
                 elif player_id.id_player == pairs[1].id_player:
                     player_id.score = pairs[1].score
                 pass
-            match = model_chess.Match(score_1, score_2, pairs[0].id_player, pairs[1].id_player, str(match_number))
+            match = model_chess.Match(score_1, score_2, pairs[0].id_player, pairs[1].id_player, pairs[0].ranking,
+                                      pairs[1].ranking, str(match_number))
             list_of_matches.append(match)
 
         return list_of_matches, list_of_players_ids, list_done_pairs
@@ -274,18 +275,36 @@ class Controller:
             self.insert_tournament(tournament)
 
         elif answer == "2":
-            unfinished_tournaments = tournois.search(Query().tournament_state == 'non fini')
-            last_tournament = self.choose_tournament(unfinished_tournaments)
-            tournament, new_list_of_players = self.continue_tournament(last_tournament)
-            self.insert_tournament(tournament)
-            self.insert_players(new_list_of_players)
+            self.search_unfinished_tournaments()
 
         elif answer == "3":
             self.search_player()
 
         return self.menu()
 
+    def search_unfinished_tournaments(self):
+        try:
+            unfinished_tournaments = tournois.search(Query().tournament_state == 'non fini')
+            if not unfinished_tournaments:
+                prompt = "Il n'y a aucun tournoi non fini !\n"
+                self.view.prompt_prompt(prompt)
+                return self.menu()
+            else:
+                last_tournament = self.choose_tournament(unfinished_tournaments)
+                tournament, new_list_of_players = self.continue_tournament(last_tournament)
+                self.insert_tournament(tournament)
+                self.insert_players(new_list_of_players)
+                return self.menu()
+        except ValueError:
+            prompt = "Il y eu une erreur, Veuillez recommencer !"
+            self.view.prompt_prompt(prompt)
+            return self.menu()
+
     def search_player(self):
+        joueurs = list_all_players.all()
+        for joueur in joueurs:
+            prompt_0 = f"{joueur['name']} avec l'ID {joueur['id_player']} et un rang de {joueur['ranking']}\n"
+            self.view.prompt_prompt(prompt_0)
         prompt = "Donnez le nom du joueur à modifier :"
         try:
             nom_joueur = self.view.get_answer_2(prompt)
@@ -314,11 +333,21 @@ class Controller:
         self.view.prompt_prompt(prompt)
         for unfinished_tournament in unfinished_tournaments:
             self.view.prompt_prompt(unfinished_tournament['tournament_name'])
-        prompt_1 = "Saisissez le nom du tournoi à finir"
-        answer = self.view.get_answer_2(prompt_1)
-        tournament = tournois.search(Query().tournament_name == answer)
-        last_tournament = tournament[0]
-        return last_tournament
+        try:
+            prompt_1 = "Saisissez le nom du tournoi à finir"
+            answer = self.view.get_answer_2(prompt_1)
+            tournament = tournois.search(Query().tournament_name == answer)
+            if not tournament:
+                prompt_2 = "Vous vous êtes trompé de saisie ! Veuillez recommencer !"
+                self.view.prompt_prompt(prompt_2)
+                return self.choose_tournament(unfinished_tournaments)
+            else:
+                last_tournament = tournament[0]
+                return last_tournament
+        except SyntaxError:
+            prompt_3 = "Vous vous êtes trompé de saisie ! Veuillez recommencer !"
+            self.view.prompt_prompt(prompt_3)
+            return self.choose_tournament(unfinished_tournaments)
 
     @staticmethod
     def dic_players_to_obj(dic_list_of_players):
@@ -349,11 +378,14 @@ class Controller:
                 score_1 = match['score_1']
                 score_2 = match['score_2']
                 player_1_id = match['player_1_id']
-                player_2_id = match['layer_2_id']
+                player_2_id = match['player_2_id']
+                player_1_ranking = match['player_1_ranking']
+                player_2_ranking = match['player_2_ranking']
                 match_number = match['match_number']
-                match = model_chess.Match(score_1, score_2, player_1_id, player_2_id, str(match_number))
-                player_1 = model_chess.IdPlayers(player_1_id, score_1)
-                player_2 = model_chess.IdPlayers(player_2_id, score_2)
+                match = model_chess.Match(score_1, score_2, player_1_id, player_2_id,
+                                          player_1_ranking, player_1_ranking, str(match_number))
+                player_1 = model_chess.IdPlayers(player_1_id, score_1, player_1_ranking)
+                player_2 = model_chess.IdPlayers(player_2_id, score_2, player_2_ranking)
                 pair = [player_1, player_2]
                 list_done_pairs.append(pair)
                 new_match.append(match)
