@@ -1,7 +1,8 @@
 # Model
 
 class Player:
-    def __init__(self, name, ranking, gender, date_of_birth, id_player, score=0):
+    def __init__(self, name, ranking, gender,
+                 date_of_birth, id_player, score=0):
         self.name = name
         self.ranking = ranking
         self.gender = gender
@@ -34,7 +35,8 @@ class IdPlayers:
 
 
 class Match:
-    def __init__(self, score_1, score_2, player_1_id, player_2_id, player_1_ranking, player_2_ranking, match_number):
+    def __init__(self, score_1, score_2, player_1_id, player_2_id,
+                 player_1_ranking, player_2_ranking, match_number):
         self.score_1 = score_1
         self.score_2 = score_2
         self.player_1_id = player_1_id
@@ -45,7 +47,8 @@ class Match:
 
 
 class Round:
-    def __init__(self, round_number, list_matchs, start_date_time, end_date_time, name_round):
+    def __init__(self, round_number, list_matchs, start_date_time,
+                 end_date_time, name_round):
         self.round_number = round_number
         self.list_matchs = list_matchs
         self.start_date_time = start_date_time
@@ -54,8 +57,10 @@ class Round:
 
 
 class Tournament:
-    def __init__(self, tournament_name, location, tournament_date_start, tournament_date_end, num_of_days,
-                 num_of_rounds, num_of_players, new_list_of_players, list_of_rounds, tournament_state):
+    def __init__(self, tournament_name, location, tournament_date_start,
+                 tournament_date_end, num_of_days,
+                 num_of_rounds, num_of_players, new_list_of_players,
+                 list_of_rounds, tournament_state):
         self.tournament_name = tournament_name
         self.location = location
         self.tournament_date_start = tournament_date_start

@@ -3,11 +3,15 @@ class View:
 
     @staticmethod
     def prompt_player_details(player):
-        print(f"Le joueur {player.name} avec l'ID {player.id_player} a un score de {player.score}\n\n")
+        print(
+            f"Le joueur {player.name} avec l'ID {player.id_player} "
+            f"a un score de {player.score}\n\n")
 
     @staticmethod
     def prompt_player_number(player_number):
-        print(f"Saisissez les information pour le joueur numéro {player_number} :")
+        print(
+            f"Saisissez les information pour le joueur numéro "
+            f"{player_number} :")
 
     @staticmethod
     def prompt_prompt(prompt):
@@ -44,7 +48,8 @@ class View:
 
     def get_gender(self):
         try:
-            gender = input("Saisissez le genre du joueur homme : h ou femme : f \n\n")
+            gender = input(
+                "Saisissez le genre du joueur homme : h ou femme : f \n\n")
             if len(gender) > 1:
                 print("La valeur saisie esr trop longue !\n")
                 return self.get_gender()
@@ -56,7 +61,9 @@ class View:
 
     def get_date_of_birth(self):
         try:
-            date_of_birth = input("Saisissez la date de naissance du joueur, comme suit : jj/mm/aaaa\n\n")
+            date_of_birth = input(
+                "Saisissez la date de naissance du joueur, comme suit : "
+                "jj/mm/aaaa\n\n")
             if len(date_of_birth) > 10:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_date_of_birth()
@@ -104,7 +111,8 @@ class View:
 
     def get_tournament_location(self):
         try:
-            tournament_location = input("Indiquez ou se déroule le tournoi :\n\n")
+            tournament_location = input(
+                "Indiquez ou se déroule le tournoi :\n\n")
             if len(tournament_location) > 20:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_tournament_location()
@@ -116,7 +124,9 @@ class View:
 
     def get_tournament_date_start(self):
         try:
-            tournament_date_start = input("Indiquez la date de debut du tournoi comme suit : jj/mm/aaaa\n\n")
+            tournament_date_start = input(
+                "Indiquez la date de debut du tournoi comme suit : "
+                "jj/mm/aaaa\n\n")
             if len(tournament_date_start) > 10:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_tournament_date_start()
@@ -128,7 +138,9 @@ class View:
 
     def get_tournament_date_end(self):
         try:
-            tournament_date_end = input("Indiquez la date de fin du tournoi comme suit : jj/mm/aaaa\n\n")
+            tournament_date_end = input(
+                "Indiquez la date de fin du tournoi comme suit : "
+                "jj/mm/aaaa\n\n")
             if len(tournament_date_end) > 10:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_tournament_date_end()
@@ -140,7 +152,9 @@ class View:
 
     def get_number_days(self):
         try:
-            number_days = int(input("Indiquez le nombre de jours durant lesquels se déroulera le tournoi :\n\n"))
+            number_days = int(input(
+                "Indiquez le nombre de jours durant lesquels se "
+                "déroulera le tournoi :\n\n"))
             if len(str(number_days)) > 2:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_number_days()
@@ -152,7 +166,8 @@ class View:
 
     def get_number_players(self):
         try:
-            number_players = int(input("Indiquez le nombre de joueurs participant au tournoi :\n\n"))
+            number_players = int(input(
+                "Indiquez le nombre de joueurs participant au tournoi :\n\n"))
             if len(str(number_players)) > 2:
                 print("La valeur saisie est trop longue !\n")
                 return self.get_number_players()
@@ -164,7 +179,9 @@ class View:
 
     def get_round_start_time(self):
         try:
-            round_start_time = input("Indiquez la date et heure de debut du tour : jj/mm/aaaa hh:mm\n\n")
+            round_start_time = \
+                input("Indiquez la date et heure de debut du tour : "
+                      "jj/mm/aaaa hh:mm\n\n")
             if len(round_start_time) > 16:
                 return self.get_round_start_time()
             return round_start_time
@@ -175,7 +192,9 @@ class View:
 
     def get_round_end_time(self):
         try:
-            round_end_time = input("Indiquez la date et heure de fin du tour : jj/mm/aaaa hh:mm\n\n")
+            round_end_time = \
+                input("Indiquez la date et heure de fin du tour : "
+                      "jj/mm/aaaa hh:mm\n\n")
             if len(round_end_time) > 16:
                 return self.get_round_end_time()
             return round_end_time
@@ -198,8 +217,11 @@ class View:
 
     def get_score_player(self, id_player):
         try:
-            score_player = float(input(f"Saisissez le score pour le joueur avec l'ID : {id_player}"
-                                       f" : score (1 or 0 or 0.5)\n\n"))
+            score_player = \
+                float(input(
+                    f"Saisissez le score pour le joueur avec l'ID : "
+                    f"{id_player}"
+                    f" : score (1 or 0 or 0.5)\n\n"))
             if len(str(score_player)) > 4:
                 return self.get_score_player(id_player)
             return score_player
@@ -217,21 +239,27 @@ class View:
             elif answer == "non" or answer == "n":
                 return False
             else:
-                print("La saisie ne fais pas partie des option suggérées, veuillez recommencer")
+                print(
+                    "La saisie ne fais pas partie des option suggérées, "
+                    "veuillez recommencer")
                 return self.get_answer(prompt_get_answer)
         except SyntaxError:
             print("La saisie n'est pas correcte, Veuillez recommencer ! ")
             return self.get_answer(prompt_get_answer)
 
     def get_menu_option(self):
-        print("Bonjour ! Vous venez de lancer le programme de gestion de tournoi d'échecs, "
-              "veuillez choisir une option parmi celles proposées !\n")
+        print(
+            "Bonjour ! Vous venez de lancer le programme de gestion de "
+            "tournoi d'échecs, "
+            "veuillez choisir une option parmi celles proposées !\n")
         print("1 - Commencer un nouveau tournoi.\n")
         print("2 - Reprendre un tournoi passé.\n")
         print("3 - Consulter et modifier la liste des joueurs participants.\n")
         print("Saisissez 1, 2 ou 3 !\n")
         try:
-            answer = input("Veuillez choisir une option en saisissant le numéro correspondant :\n")
+            answer = input(
+                "Veuillez choisir une option en saisissant le numéro "
+                "correspondant :\n")
             if not (answer == "1" or answer == "2" or answer == "3"):
                 print("La saisie n'est pas correcte, veuillez recommencer ! ")
                 return self.get_menu_option()
