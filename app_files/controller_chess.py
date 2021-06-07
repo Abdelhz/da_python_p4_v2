@@ -334,7 +334,7 @@ class Controller:
         for unfinished_tournament in unfinished_tournaments:
             self.view.prompt_prompt(unfinished_tournament['tournament_name'])
         try:
-            prompt_1 = "Saisissez le nom du tournoi à finir"
+            prompt_1 = "Saisissez le nom du tournoi à finir :\n"
             answer = self.view.get_answer_2(prompt_1)
             tournament = tournois.search(Query().tournament_name == answer)
             if not tournament:
@@ -396,19 +396,19 @@ class Controller:
 
     def dic_tournament_to_obj(self, dic_tournament):
         tournament_name = dic_tournament["tournament_name"]
-        tournament_location = dic_tournament["tournament_location"]
+        location = dic_tournament["location"]
         tournament_date_start = dic_tournament["tournament_date_start"]
         tournament_date_end = dic_tournament["tournament_date_end"]
-        number_days = dic_tournament["number_days"]
-        number_rounds = dic_tournament["number_rounds"]
-        number_players = dic_tournament["number_players"]
+        num_of_days = dic_tournament["num_of_days"]
+        num_of_rounds = dic_tournament["num_of_rounds"]
+        num_of_players = dic_tournament["num_of_players"]
         dic_list_of_players = dic_tournament["new_list_of_players"]
         dic_list_of_rounds = dic_tournament["list_of_rounds"]
         tournament_state = dic_tournament["tournament_state"]
         new_list_of_players = self.dic_players_to_obj(dic_list_of_players)
         list_of_rounds, list_done_pairs = self.dic_rounds_to_obj(dic_list_of_rounds)
 
-        tournament = model_chess.Tournament(tournament_name, tournament_location, tournament_date_start,
-                                            tournament_date_end, number_days, number_rounds, number_players,
+        tournament = model_chess.Tournament(tournament_name, location, tournament_date_start,
+                                            tournament_date_end, num_of_days, num_of_rounds, num_of_players,
                                             new_list_of_players, list_of_rounds, tournament_state)
-        return tournament, new_list_of_players, number_rounds, list_done_pairs
+        return tournament, new_list_of_players, num_of_rounds, list_done_pairs
