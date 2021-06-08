@@ -1,4 +1,4 @@
-from controller_chess import Controller
+from app_files.controller_chess import Controller
 
 controller_ch = Controller()
 
