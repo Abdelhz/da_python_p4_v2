@@ -15,7 +15,7 @@ Création de l'env avec *venv*
 
 **cd programme_echecs**
 
-**pyton -m venv env_programme echecs**
+**python -m venv env_programme_echecs**
 
 A ce moment l'env est créé et il nous suffit de l'activer.
 
