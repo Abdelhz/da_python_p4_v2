@@ -1,4 +1,5 @@
 # Controller
+import sys
 import view_chess
 import model_chess
 import services_chess
@@ -327,6 +328,9 @@ class Controller:
         elif answer == "3":
             self.search_player()
 
+        elif answer == "4":
+            sys.exit("Fermeture du programme !")
+
         return self.menu()
 
     def search_unfinished_tournaments(self):
@@ -357,31 +361,39 @@ class Controller:
                 f"{joueur['name']} avec l'ID {joueur['id_player']} " \
                 f"et un rang de {joueur['ranking']}\n"
             self.view.prompt_prompt(prompt_0)
+        prompt_1 = "Voulez-vous modifier les joueurs ?\n"
         prompt = "Donnez le nom du joueur à modifier :"
-        try:
-            nom_joueur = self.view.get_answer_2(prompt)
-            joueur = self.list_all_players.search(Query().name == nom_joueur)
-            if not joueur:
-                prompt_1 = "ce nom n'existe pas dans la liste," \
-                           " veuillez recommencer !\n"
-                self.view.prompt_prompt(prompt_1)
-                return self.search_player()
-            else:
-                prompt_1 = "Donnez le nouveau rang du joueur :\n"
-                ranking = int(self.view.get_answer_2(prompt_1))
-                self.list_all_players.update({"ranking": ranking},
-                                             Query().name == nom_joueur)
-                prompt_2 = "Voulez-vous continuer à modifier des joueurs ?\n"
-                answer = self.view.get_answer(prompt_2)
-                if answer:
+        answer = self.view.get_answer(prompt_1)
+        if answer:
+            try:
+                nom_joueur = self.view.get_answer_2(prompt)
+                joueur = \
+                    self.list_all_players.search(Query().name == nom_joueur)
+                if not joueur:
+                    prompt_1 = "ce nom n'existe pas dans la liste," \
+                               " veuillez recommencer !\n"
+                    self.view.prompt_prompt(prompt_1)
                     return self.search_player()
                 else:
-                    pass
-        except SyntaxError:
-            prompt_3 = \
-                "Le nom du joueur saisie est incorrecte, veuillez recommencer"
-            self.view.prompt_prompt(prompt_3)
-            return self.search_player()
+                    prompt_1 = "Donnez le nouveau rang du joueur :\n"
+                    ranking = int(self.view.get_answer_2(prompt_1))
+                    self.list_all_players.update({"ranking": ranking},
+                                                 Query().name == nom_joueur)
+                    prompt_2 = \
+                        "Voulez-vous continuer à modifier des joueurs ?\n"
+                    answer = self.view.get_answer(prompt_2)
+                    if answer:
+                        return self.search_player()
+                    else:
+                        pass
+            except SyntaxError:
+                prompt_3 = \
+                    "Le nom du joueur saisie est incorrecte, " \
+                    "veuillez recommencer"
+                self.view.prompt_prompt(prompt_3)
+                return self.search_player()
+        else:
+            self.menu()
 
     def choose_tournament(self, unfinished_tournaments):
         prompt = "Voici les noms des tournois non fini :\n"
