@@ -1,8 +1,8 @@
 # Controller
-import initialisation
-import view_chess
-import model_chess
-import services_chess
+from . import initialisation
+from . import view_chess
+from . import model_chess
+from . import services_chess
 import os
 from tinydb import TinyDB, Query
 
