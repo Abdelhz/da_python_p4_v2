@@ -1,5 +1,5 @@
 # Controller
-import sys
+import initialisation
 import view_chess
 import model_chess
 import services_chess
@@ -329,7 +329,7 @@ class Controller:
             self.search_player()
 
         elif answer == "4":
-            sys.exit("Fermeture du programme !")
+            initialisation.fermeture_programme()
 
         return self.menu()
 
