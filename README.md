@@ -1,23 +1,23 @@
 # da_python_p4_v2
 # Project : le logiciel "Programme d'échecs" écris en Python, est une application de gestion de tournois de jeux d'échecs fonctionnant avec le modèle suisse.
 
-# Creation d'un environnement virtuel (env) pour le programme d'échecs  :
-Nous devons tout d'abord creer un environnement virtuel python.
+# Création d'un environnement virtuel (env) pour le programme d'échecs  :
+Nous devons tout d'abord créer un environnement virtuel python.
 
 **NOTE :** Nous utilisons *python 3.9*
 
-*Creation d'un répertoir pour le projet :*
+*Création d'un répertoir pour le projet :*
 On ouvre d'abord un terminal (Si sous windows utiliser Git bash ou similaire pour les commandes unix)
 
 **mkdir programme_echecs**
 
-Creation de l'env avec *venv*
+Création de l'env avec *venv*
 
 **cd programme_echecs**
 
 **pyton -m venv env_programme echecs**
 
-A ce moment l'env est crée et il nous suffit de l'activer.
+A ce moment l'env est créé et il nous suffit de l'activer.
 
 # Activer l'env :
 Il faut pour cela naviguer dans le dossier *scrips* ou appelé "*bin*" sous linux, contenu dans le répertoir env_programme echecs;
@@ -38,7 +38,7 @@ Nous n'installerons en plus que le module TinyDB.
 **pip install -r requirements.txt**
 
 # Lancerment et execution du programme :
-Après avoir téléchargé les fichiers mettre créer un répertoire qui contiendra les fichier du programme;
+Après avoir téléchargé les fichiers, créer un répertoire qui contiendra les fichier du programme téléchargés;
 **cd path-to/programme_echecs**
 **mkdir programme**
 *Mettre le fichier "main_chess.py" et le répertoire "app_files" dans le répertoire "programme"
