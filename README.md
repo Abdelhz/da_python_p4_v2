@@ -99,10 +99,11 @@ Après chaque modification nous avons la mossibilité de continuer ou de revenir
 
 La souvegarde des donnée se fait dans un fichier db.json dans "programme_echecs/programme/data/" 
 
-**Verification du programme avec flake8**
+**Verification du programme avec flake8 :**
 
 En utilisant le terminal sur le répertoire "programme_echecs/programme/"
 executer la commande suivante :
 
 **flake8 --format=html --htmldir=flake-report**
+
 un repertoire nommé "flake-report" sera créé, dedans sera contenu un fichier "index.html" qui temoignera du respect ou non de la PEP8 sur l'ecriture de tout les fichiers du programme.
