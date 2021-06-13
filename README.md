@@ -22,7 +22,7 @@ A ce moment l'env est créé et il nous suffit de l'activer.
 # Activer l'env :
 Il faut pour cela naviguer dans le dossier *scrips* ou appelé "*bin*" sous linux, contenu dans le répertoir env_programme echecs;
 
-**cd env_scrap/scripts**
+**cd env_programme_echecs/scripts**
 
 **source activate**
 
@@ -30,7 +30,7 @@ L'env est maintenant activé.
 
 # Installation des bibliothèques requises dans l'env :
 Nous n'installerons en plus que le module TinyDB.
-*Revenir au répertoir du projet.*
+*Revenir au répertoire du projet.*
 *Mettre le fichier "requirements.txt" dans ce répertoire.*
 
 *Lancer la commande :*
