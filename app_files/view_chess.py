@@ -255,12 +255,14 @@ class View:
         print("1 - Commencer un nouveau tournoi.\n")
         print("2 - Reprendre un tournoi passé.\n")
         print("3 - Consulter et modifier la liste des joueurs participants.\n")
-        print("Saisissez 1, 2 ou 3 !\n")
+        print("4 - Fermer le programme.\n")
+        print("Saisissez 1, 2, 3 ou 4 !\n")
         try:
             answer = input(
                 "Veuillez choisir une option en saisissant le numéro "
                 "correspondant :\n")
-            if not (answer == "1" or answer == "2" or answer == "3"):
+            if not (answer == "1" or answer == "2" or
+                    answer == "3" or answer == "4"):
                 print("La saisie n'est pas correcte, veuillez recommencer ! ")
                 return self.get_menu_option()
             else:
